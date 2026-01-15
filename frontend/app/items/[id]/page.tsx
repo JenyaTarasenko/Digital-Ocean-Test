@@ -1,6 +1,8 @@
-
+'use client'; // обязательно, чтобы это был клиентский компонент
 import { fetchItemById } from "../../../lib/api";
+import { getImageUrl } from "../../../lib/api";
 // import Image from "next/image";
+
 
 interface Props {
     params: { id: string };
@@ -25,7 +27,8 @@ export default async function ItemDetail({ params }: Props) {
             /> */}
 
             <p>{item.description}</p>
-            <img src={item.image} alt={item.name} style={{ width: "100%" }} />
+            <img src={getImageUrl(item.image)} alt={item.name} style={{ width: "100%" }} />
+            {/* <img src={item.image} alt={item.name} style={{ width: "100%" }} /> */}
         </div>
     );
 }
