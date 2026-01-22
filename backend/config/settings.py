@@ -116,8 +116,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Next.js dev
 ]
-
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "backend"]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://frontend:3000",
+]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "0.0.0.0",
+    "backend",   # ← ВАЖНО для Docker
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

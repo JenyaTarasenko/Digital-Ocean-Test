@@ -12,6 +12,7 @@ RUN npm install
 # Копируем весь фронтенд
 COPY frontend/ .
 
+
 # Собираем проект
 RUN npm run build
 

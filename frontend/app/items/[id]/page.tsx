@@ -1,9 +1,4 @@
-'use client'; // обязательно, чтобы это был клиентский компонент
-import { fetchItemById } from "../../../lib/api";
-import { getImageUrl } from "../../../lib/api";
-// import Image from "next/image";
-
-
+import { fetchItemById, getImageUrl } from "../../../lib/api";
 interface Props {
     params: { id: string };
 }
