@@ -9,7 +9,8 @@ services:
     # env_file:
     #   - .env
     env_file:
-      - ./backend/.env
+      - /root/Digital-Ocean-Test/backend/.env
+      # - ./backend/.env
     volumes:
       - ./backend/media:/app/media
     ports:
@@ -23,7 +24,8 @@ services:
       dockerfile: frontend/Dockerfile
     container_name: frontend
     env_file:
-      - ./frontend/.env.local
+      - /root/Digital-Ocean-Test/frontend/.env.local
+      # - ./frontend/.env.local
       #для доккер разработки 
     environment:
       - DOCKER=1
