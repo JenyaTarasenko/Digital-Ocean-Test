@@ -9,12 +9,12 @@ services:
     # env_file:
     #   - .env
     env_file:
-      - /root/Digital-Ocean-Test/backend/.env
-      # - ./backend/.env
+      # - /root/Digital-Ocean-Test/backend/.env
+      - ./backend/.env
     volumes:
       - ./backend/media:/app/media # база данных
       - ./backend/db.sqlite3:/app/db.sqlite3
-      - ./backend/staticfiles:/app/staticfiles
+      # - ./backend/staticfiles:/app/staticfiles
     ports:
       - "8001:8001"
     # depends_on:
@@ -26,8 +26,8 @@ services:
       dockerfile: frontend/Dockerfile
     container_name: frontend
     env_file:
-      - /root/Digital-Ocean-Test/frontend/.env.local
-      # - ./frontend/.env.local
+      # - /root/Digital-Ocean-Test/frontend/.env.local
+      - ./frontend/.env.local
       #для доккер разработки 
     environment:
       - DOCKER=1

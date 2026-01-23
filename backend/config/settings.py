@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',  # Сверху
+    "whitenoise.middleware.WhiteNoiseMiddleware", 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -115,27 +116,34 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Next.js dev
-    "http://157-230-143-66.nip.io:3000"
+    # "http://157-230-143-66.nip.io:3000"
 ]
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://frontend:3000",
-    "http://157-230-143-66.nip.io:3000",
-]
-ALLOWED_HOSTS = [
-    '157.230.143.66',        # прямой IP сервера
-    '157-230-143-66.nip.io', # временный домен для заказчика
-    'localhost',             # локальные тесты
-    '127.0.0.1',
-    "backend",   # ← ВАЖНО для Docker
+    # "http://157-230-143-66.nip.io:3000",
 ]
 # ALLOWED_HOSTS = [
-#     "localhost",
-#     "127.0.0.1",
-#     "0.0.0.0",
+#     # '157.230.143.66',        # прямой IP сервера
+#     # '157-230-143-66.nip.io', # временный домен для заказчика
+#     'localhost',             # локальные тесты
+#     '127.0.0.1',
 #     "backend",   # ← ВАЖНО для Docker
 # ]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "0.0.0.0",
+    "backend",   # ← ВАЖНО для Docker
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CORS_ALLOW_ALL_ORIGINS = True  # для dev
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+# Путь для доступа к статике
+STATIC_URL = "/static/"
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
