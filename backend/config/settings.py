@@ -65,10 +65,20 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mydb',           # Из POSTGRES_DB в compose
+        'USER': 'postgres',       # Из POSTGRES_USER в compose
+        'PASSWORD': 'postgres',   # Из POSTGRES_PASSWORD в compose
+        'HOST': 'db',             # Имя сервиса в docker-compose
+        'PORT': '5432',
     }
 }
 
