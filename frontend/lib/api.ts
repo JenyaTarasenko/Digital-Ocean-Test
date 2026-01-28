@@ -23,19 +23,22 @@ export async function fetchItemById(id: string) {
     if (!res.ok) throw new Error("Ошибка загрузки item");
     return res.json();
 }
+
 export function getImageUrl(path: string | null) {
     if (!path) return "";
 
-    // Если Django уже прислал полный путь (начинается с http), 
-    // просто возвращаем его как есть
+    // Если в пути есть "backend:8001", заменяем его на твой публичный домен
+    if (path.includes('backend:8001')) {
+        return path.replace('http://backend:8001', 'http://157-230-143-66.nip.io');
+    }
+
+    // Если путь уже начинается с http и там твой домен - просто возвращаем
     if (path.startsWith('http')) {
         return path;
     }
 
-    // На случай, если придет относительный путь /media/...
-    // используем домен сервера
-    const baseUrl = "http://157-230-143-66.nip.io";
-    return `${baseUrl}${path}`;
+    // На случай, если придет просто "/media/..."
+    return `http://157-230-143-66.nip.io${path}`;
 }
 
 
