@@ -23,29 +23,43 @@ export async function fetchItemById(id: string) {
     if (!res.ok) throw new Error("Ошибка загрузки item");
     return res.json();
 }
-
-
-// lib/api.ts
-export function getImageUrl(path?: string) {
+export function getImageUrl(path: string | null) {
     if (!path) return "";
 
-    // Находим, где начинается путь /media/
-    const mediaIndex = path.indexOf('/media/');
-    if (mediaIndex === -1) return path; // если /media/ нет, возвращаем как есть
-
-    // Вырезаем всё, что ДО /media/ (убираем http://0.0.0.0:8001)
-    const cleanPath = path.substring(mediaIndex);
-
-    // В браузере нам не нужен хост, если фронт и бэк на одном домене/порту 80
-    if (typeof window !== "undefined") {
-        // Вернет просто "/media/images/__90.jpeg"
-        // Браузер сам добавит http://localhost к этому пути
-        return cleanPath;
+    // Если Django уже прислал полный путь (начинается с http), 
+    // просто возвращаем его как есть
+    if (path.startsWith('http')) {
+        return path;
     }
 
-    // Для SSR (серверной части Next.js)
-    return `http://backend:8001${cleanPath}`;
+    // На случай, если придет относительный путь /media/...
+    // используем домен сервера
+    const baseUrl = "http://157-230-143-66.nip.io";
+    return `${baseUrl}${path}`;
 }
+
+
+// // lib/api.ts
+// export function getImageUrl(path?: string) {
+//     if (!path) return "";
+
+//     // Находим, где начинается путь /media/
+//     const mediaIndex = path.indexOf('/media/');
+//     if (mediaIndex === -1) return path; // если /media/ нет, возвращаем как есть
+
+//     // Вырезаем всё, что ДО /media/ (убираем http://0.0.0.0:8001)
+//     const cleanPath = path.substring(mediaIndex);
+
+//     // В браузере нам не нужен хост, если фронт и бэк на одном домене/порту 80
+//     if (typeof window !== "undefined") {
+//         // Вернет просто "/media/images/__90.jpeg"
+//         // Браузер сам добавит http://localhost к этому пути
+//         return cleanPath;
+//     }
+
+//     // Для SSR (серверной части Next.js)
+//     return `http://backend:8001${cleanPath}`;
+// }
 
 // // корректная генерация URL для картинки
 // export function getImageUrl(path?: string) {
